@@ -12,7 +12,7 @@ import RightPane from './right-pane';
 
 function Loader(props) {
     return (
-        <div style={{padding: 10, width: '100%', display: 'flex', 'justify-content': 'flex-start', flexDirection: 'row'}}>
+        <div style={{padding: 10, width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
             <div className="loader-shell first"></div>
             <div style={{width: '70%'}}>
                 <div className="loader-shell second"></div>
@@ -31,7 +31,7 @@ class Application extends React.Component {
     }
 
     componentDidMount(){
-        APIHelper.getProductList().then((data)=>this.setState(data));
+        APIHelper.getProductList().then((data)=>this.setState({items: data.products}));
     }
 
     render(){
@@ -40,9 +40,11 @@ class Application extends React.Component {
                 <Header/>
                 <div className="content">
                     <LeftPane/>
-                    {
-                        this.state.items ? <RightPane/> : <Loader/>
-                    }
+                    <div className="right-pane-container">
+                        {
+                            this.state.items ? <RightPane items={this.state.items}/> : <Loader/>
+                        }
+                    </div>
                 </div>
             </div>
         );
