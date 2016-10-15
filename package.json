@@ -1,12 +1,13 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --port 3000 --publicPath /static/"
   },
   "dependencies": {
-    "react": "^15.4.0-rc.4",
-    "react-dom": "^15.4.0-rc.4",
     "es6-promise": "^4.0.5",
     "object.assign": "^4.0.4",
+    "react": "^15.4.0-rc.4",
+    "react-dom": "^15.4.0-rc.4",
+    "react-hot-loader": "^3.0.0-beta.6",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "image-size": "^0.5.0",
+    "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "~2.1.0-beta.25",
