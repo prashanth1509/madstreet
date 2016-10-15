@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchImage from '../images/search.svg';
+import SearchImage from '../__images/search.svg';
 
 export default class Header extends React.Component {
     render(){

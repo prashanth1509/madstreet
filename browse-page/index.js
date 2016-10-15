@@ -1,9 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
-import shims from './helpers/shims';
+import shims from './__helpers/shims';
 
-import resetStyles from './reset.css';
-import pageStyles from './styles.css';
+import resetStyles from './__styles/reset.css';
+import pageStyles from './__styles/styles.css';
 
 import Header from './header';
 import LeftPane from './left-pane';
