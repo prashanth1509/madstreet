@@ -57,10 +57,10 @@ class Application extends React.Component {
             predicate = (a, b) => parseInt(a.category) - parseInt(b.category);
         }
         else if(type === CONSTANTS.SORT_TYPES[4]) {
-            predicate = (a, b) => a.name.localeCompare(b.name)
+            predicate = (a, b) => parseFloat(a.rating) - parseFloat(b.rating);
         }
         else if(type === CONSTANTS.SORT_TYPES[5]) {
-            predicate = (a, b) => b.name.localeCompare(a.name)
+            predicate = (a, b) => parseFloat(b.rating) - parseFloat(a.rating);
         }
 
 

@@ -16,26 +16,31 @@
         background-color: #ffffff;
         transform: translateY(0px);
         transition: transform 0.5s ease;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.8);
 
         &.min {
             transform: translateY(-10px);
-            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.8);
             .logo {
-                .clip, .sub {
+                .clip{
                     opacity: 0;
                 }
             }
         }
+
         .logo {
             font-size: 25px;
             margin-left: 30px;
-            .sub {
-                font-size: 14px;
-                will-change: opacity;
-                opacity: 1;
+            .name {
+                text-shadow: 1px 1px 1px #848484;
             }
-            .clip, .sub {
+            .heart{
+                width: 15px;
+                height: 15px;
+                animation: scaler 3s ease;
+            }
+            .clip {
                 transition: opacity 0.5s ease;
+                color: #00796B;
             }
         }
 
@@ -258,10 +263,15 @@
         }
     }
     @keyframes loading-shell {
-        0%{background-position: -500px 0}
-        100%{background-position: 500px 0}
+        from {background-position: -500px 0}
+        to {background-position: 500px 0}
     }
 
+    @keyframes scaler {
+        0%{transform: scale(0);}
+        50%{transform: scale(3);}
+        100%{transform: scale(1);}
+    }
     .rating {
         display: inline-block;
         padding: 5px;

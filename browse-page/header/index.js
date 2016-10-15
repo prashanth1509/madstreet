@@ -7,10 +7,10 @@ export default class Header extends React.Component {
             <div className="header">
                 <div className="logo">
                     <div className="name">
+                        <span>
+                            <img src={require('../__images/heart.svg')} className="heart"/>
+                        </span>
                         MAD <span className="clip">DEN STREET</span>
-                    </div>
-                    <div className="sub">
-                        bla bla bla
                     </div>
                 </div>
                 <div className="search">
