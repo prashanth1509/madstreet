@@ -5,7 +5,7 @@ module.exports = {
     entry: [
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
-        './src/index.js'
+        './browse-page/index.js'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -36,8 +36,8 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|jpeg|gif|svg)$/,
-                loader: 'image-size'
+                test: /\.svg$/,
+                loader: 'file-loader'
             }
         ]
     },
