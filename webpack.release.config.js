@@ -6,9 +6,10 @@ var CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
     entry: './browse-page/index.js',
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/static/'
+        path: path.join(__dirname, 'static'),
+        'publicPath': '/static/',
+        'filename': 'bundle.js',
+        'pathinfo': false
     },
     module: {
         loaders: [
@@ -18,24 +19,11 @@ module.exports = {
             },
             {
                 test: /.css$/,
-                loaders: [
-                    {
-                        loader: 'style-loader',
-                        query: {
-                            singleton: true
-                        }
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
+                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader!sass-loader' })
             },
             {
                 test: /\.svg$/,
-                loader: require.resolve("file-loader") + "?name=../[path][name].[ext]"
+                loader: 'file-loader'
             }
         ]
     },
@@ -60,11 +48,6 @@ module.exports = {
                 join_vars: true
             }
         }),
-        new webpack.NoErrorsPlugin(),
-        new CompressionPlugin({
-            asset: '[path][query]',
-            algorithm: 'gzip',
-            test: /\.js$|\.svg|\.css/
-        })
+        new webpack.NoErrorsPlugin()
     ]
 };
