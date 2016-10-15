@@ -2,11 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: [
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        './src/index.js'
+    ],
     output: {
-        path: path.join(__dirname, 'public'),
+        path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/public/'
+        publicPath: '/static/'
     },
     module: {
         loaders: [
@@ -24,11 +28,7 @@ module.exports = {
                         }
                     },
                     {
-                        loader: 'css-loader',
-                        query: {
-                            module: true,
-                            localIdentName: "[path][name]_[local]_[hash:base64:6]"
-                        }
+                        loader: 'css-loader'
                     },
                     {
                         loader: 'sass-loader'
@@ -42,13 +42,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                devServer: {
-                    inline: true
-                }
-            }
-        })
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
