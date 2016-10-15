@@ -4,9 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-    entry: [
-        './browse-page/index.js'
-    ],
+    entry: './browse-page/index.js',
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
@@ -37,7 +35,7 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                loader: 'file-loader'
+                loader: require.resolve("file-loader") + "?name=../[path][name].[ext]"
             }
         ]
     },
