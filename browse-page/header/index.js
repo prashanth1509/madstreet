@@ -6,15 +6,15 @@ export default class Header extends React.Component {
         return (
             <div className="header">
                 <div className="logo">
-                    <div>
-                        MAD DEN STREET
+                    <div className="name">
+                        MAD <span className="clip">DEN STREET</span>
                     </div>
                     <div className="sub">
                         bla bla bla
                     </div>
                 </div>
                 <div className="search">
-                    <input type="text" className="input" placeholder="Search.."/>
+                    <input type="text" onChange={(e) => this.props.onSearch(e.target.value)} className="input" placeholder="Search by name.."/>
                     <img src={SearchImage} className="icon"/>
                 </div>
             </div>

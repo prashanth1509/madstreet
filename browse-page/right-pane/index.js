@@ -1,5 +1,7 @@
 import React from 'react';
 import Item from './item';
+import WarningImage from '../__images/warning.svg';
+import {notifier} from '../notifier';
 
 export default class RightPane extends React.Component {
     constructor(props){
@@ -8,11 +10,20 @@ export default class RightPane extends React.Component {
     }
 
     emptyComponent(){
-        return <div style={{padding: 20}}>No Items!</div>;
+        return (
+            <div style={{padding: 20, textAlign: 'center'}}>
+                <img src={WarningImage} style={{maxWidth: 100}}/>
+                <div style={{fontSize: 20, color: '#848484', margin: 10}}>{'No items found!'}</div>
+            </div>
+        );
     }
 
     getItems(item, index){
         return <Item key={index} {...item}/>;
+    }
+
+    componentDidUpdate(){
+        window.setTimeout( () => notifier('Showing ' + this.props.items.length + ' items'), 1000);
     }
 
     render(){
@@ -23,11 +34,6 @@ export default class RightPane extends React.Component {
 
         return (
             <div className="right-pane">
-                <div className="menu">
-                    <div className="result">
-                        {'  Showing ' + this.props.items.length + ' items '}
-                    </div>
-                </div>
                 <div className="items">
                     {items.map(this.getItems)}
                 </div>

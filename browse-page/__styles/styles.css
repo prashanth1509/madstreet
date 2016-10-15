@@ -14,7 +14,18 @@
         left: 0;
         width: 100%;
         background-color: #ffffff;
+        transform: translateY(0px);
+        transition: transform 0.5s ease;
 
+        &.min {
+            transform: translateY(-10px);
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.8);
+            .logo {
+                .clip, .sub {
+                    opacity: 0;
+                }
+            }
+        }
         .logo {
             font-size: 25px;
             margin-left: 30px;
@@ -22,12 +33,9 @@
                 font-size: 14px;
                 will-change: opacity;
                 opacity: 1;
-                transition: opacity 0.5s ease;
             }
-            &.min {
-                .sub {
-                    opacity: 0;
-                }
+            .clip, .sub {
+                transition: opacity 0.5s ease;
             }
         }
 
@@ -63,11 +71,15 @@
         padding: 10px 30px;
         margin-top: 100px;
 
+        .toggler {
+            display: none;
+        }
         .left-pane {
-            box-shadow: 0 1px 3px -1px rgba(0,0,0,.4);
-            border-radius: 1px;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
             width: 300px;
             position: fixed;
+            transform-origin: 0 0;
+            background-color: #ffffff;
 
             .bar {
                 font-size: 12px;
@@ -93,16 +105,17 @@
                 .price-f{
                     input {padding: 3px; margin-top:2px; display: inline-block; width: 30%;}
                 }
-                .button {
-                    margin-top: 20px;
-                    padding: 10px;
-                    text-align: center;
-                    border-radius: 3px;
-                    cursor: pointer;
-                    background-color: #07486B;
-                    color: #fff;
-                    width: 40%;
-                }
+            }
+
+            .button, .close-filter {
+                margin-top: 20px;
+                padding: 10px;
+                text-align: center;
+                border-radius: 3px;
+                cursor: pointer;
+                background-color: #07486B;
+                color: #fff;
+                width: 40%;
             }
 
             .view-bar {
@@ -121,25 +134,6 @@
             flex: 1;
             padding: 20px;
 
-            .menu {
-                text-align: center;
-                font-size: 12px;
-                margin-bottom: 20px;
-
-                .result {
-                    &:before, &:after {
-                        background-color: #848484;
-                        content: "";
-                        display: inline-block;
-                        height: 1px;
-                        vertical-align: middle;
-                        width: 5%;
-                        margin: 0 10px;
-                    }
-                    color: #07486B;
-                }
-            }
-
             .items {
                 .item {
                     display: flex;
@@ -149,13 +143,14 @@
                     padding: 20px;
 
                     .info {
-                        width: 50%;
+                        width: 80%;
                         display: flex;
                         flex-direction: row;
                         align-items: flex-start;
                         .image {
                             margin-right: 30px;
                             width: 150px;
+                            min-height: 200px;
                             background-color: rgba(0,0,0,0.1);
                             background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, transparent), color-stop(50%,rgba(255,255,255,0.35)), color-stop(100%, transparent));
                             background-repeat: no-repeat;
@@ -168,17 +163,22 @@
                         .title {
                             font-size: 20px;
                             display: inline-block;
+                            vertical-align: middle;
                         }
                         .category {
-                            color: #848484;
+                            color: #555;
                             &.apparel {
                                 &:before {
-                                    content: " (apparel)"
+                                    display: block;
+                                    margin-bottom: 3px;
+                                    content: "· Apparel ·"
                                 }
                             }
                             &.accessory {
                                 &:before {
-                                    content: " (accessory)"
+                                    display: block;
+                                    margin-bottom: 3px;
+                                    content: "· Accessory ·"
                                 }
                             }
                         }
@@ -187,21 +187,22 @@
                         }
                         .desc {
                             color: #848484;
+                            font-size: 14px;
+                            padding-left: 10px;
                             width: 90%;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 3;
-                            -webkit-box-orient: vertical;
-                            text-overflow: ellipsis;
                             overflow: hidden;
-                            margin: 10px 0;
+                            margin: 5px 0;
+                            border-left: 1px dashed #cccccc;
                         }
                         .colors {
                             border-radius: 3px;
-                            padding: 5px;
+                            padding: 3px;
+                            margin: -1px 0 0 3px;
                             display: inline-block;
+                            vertical-align: middle;
                             .color {
-                                width: 24px;
-                                height: 24px;
+                                width: 12px;
+                                height: 12px;
                             }
                         }
                     }
@@ -270,4 +271,103 @@
         }
     }
 
+    .close-filter {
+        display: none;
+    }
+
+    .toast {
+        position: fixed;
+        top: 10px;
+        width: 200px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        padding: 8px;
+        text-align: center;
+        background-color: #333;
+        opacity: 0.8;
+        border-radius: 5px;
+        color: #fff;
+        transform: translateY(0px);
+        transition: transform 0.5s ease;
+        &.hidden {
+            transform: translateY(-100px);
+        }
+    }
+
+}
+
+@media only screen and (max-width: 850px) {
+    .page {
+        .header {
+            transform: translateY(-10px);
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.8);
+            .logo {
+                .clip{
+                    opacity: 0;
+                }
+            }
+            .search {
+                .input {
+                    min-width: 100px;
+                }
+            }
+        }
+        .left-pane-container {
+            .toggler {
+                display: inline;
+                &:before {
+                    content: " MENU";
+                    margin-left: 20px;
+                }
+            }
+            .toggler:checked ~ .left-pane{
+                transform: scale(1);
+            }
+        }
+        .content {
+            padding: 10px;
+
+            .left-pane {
+                box-shadow: 0 1px 3px 1000px rgba(0,0,0,.4);
+                transition: transform 0.5s ease;
+                transform-origin: 20% 40%;
+                transform: scale(0);
+            }
+
+            .right-pane-container {
+                margin-left: 0;
+                .right-pane {
+                    padding: 0;
+                    .items {
+                        .item {
+                            display: block;
+                            text-align: center;
+                            .info {
+                                width: 100%;
+                                display: block;
+                                .image {
+                                    margin: 0 auto;
+                                }
+                                .desc {
+                                    font-size: 12px;
+                                    border: none;
+                                }
+                            }
+                            .details {
+                                padding: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .close-filter {
+            display: block;
+            text-decoration: none;
+            margin: 20px;
+            background-color: #00796B!important;
+            text-align: center;
+        }
+    }
 }

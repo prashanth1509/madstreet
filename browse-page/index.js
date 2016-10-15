@@ -9,6 +9,8 @@ import pageStyles from './__styles/styles.css';
 import Header from './header';
 import LeftPane from './left-pane';
 import RightPane from './right-pane';
+import CONSTANTS from './__helpers/constants';
+import Notification, {notifier} from './notifier';
 
 function Loader(props) {
     return (
@@ -26,20 +28,100 @@ class Application extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            items: null
+            items: null,
+            _items_src: null
         }
     }
 
     componentDidMount(){
-        APIHelper.getProductList().then((data)=>this.setState({items: data.products}));
+        APIHelper.getProductList().then((data)=>this.setState({
+            items: data.products,
+            _items_src: Object.assign([], data.products)
+        }, () => notifier('Showing ' + data.products.length + ' items')));
+    }
+
+
+    onSort(type){
+        let predicate, items = this.state.items;
+
+        if(type === CONSTANTS.SORT_TYPES[0]) {
+            predicate = (a, b) => parseFloat(a.price) - parseFloat(b.price);
+        }
+        else if(type === CONSTANTS.SORT_TYPES[1]) {
+            predicate = (a, b) => parseFloat(a.price) - parseFloat(b.price);
+        }
+        else if(type === CONSTANTS.SORT_TYPES[2]) {
+            predicate = (a, b) => parseInt(b.category) - parseInt(a.category);
+        }
+        else if(type === CONSTANTS.SORT_TYPES[3]) {
+            predicate = (a, b) => parseInt(a.category) - parseInt(b.category);
+        }
+        else if(type === CONSTANTS.SORT_TYPES[4]) {
+            predicate = (a, b) => a.name.localeCompare(b.name)
+        }
+        else if(type === CONSTANTS.SORT_TYPES[5]) {
+            predicate = (a, b) => b.name.localeCompare(a.name)
+        }
+
+
+        if(predicate)
+            window.requestAnimationFrame(() => this.setState({items: items.sort(predicate)}, () => notifier('Items sorted')));
+        else
+            this.setState({items: this.state._items_src});
+
+        this.hideFiltersForMobile();
+
+    }
+
+    onFilter(filterItem){
+        let {type, data} = filterItem;
+        let predicate, items = this.state.items;
+
+        if(type == 'price') {
+            if(data.max > 0) {
+                predicate = (item) => {
+                    let itemPrice = parseFloat(item.price);
+                    return (itemPrice > data.min && (itemPrice < (data.max || Number.MAX_SAFE_INTEGER)))
+                };
+            }
+        }
+
+        if(predicate)
+            window.requestAnimationFrame(() => this.setState({items: items.filter(predicate)}, () => notifier('Items filtered')));
+        else
+            this.setState({items: this.state._items_src});
+
+        this.hideFiltersForMobile();
+    }
+
+    onSearch(query){
+
+        if(!query) {
+            this.setState({items: this.state._items_src});
+            return;
+        }
+
+        let predicate = (item) => item.name.toLowerCase().indexOf(query.toLowerCase()) > -1, items = this.state.items;
+        window.requestAnimationFrame(() => this.setState({items: items.filter(predicate)}));
+    }
+
+
+    hideFiltersForMobile(){
+        window.requestAnimationFrame(() => {
+            try {
+                document.getElementById('toggler').checked = false;
+            }
+            catch (e){}
+        })
     }
 
     render(){
         return (
             <div className="page">
-                <Header/>
+                <Header onSearch={this.onSearch.bind(this)}/>
+                <Notification/>
                 <div className="content">
-                    <LeftPane/>
+                    <LeftPane onSort={this.onSort.bind(this)} onFilter={this.onFilter.bind(this)}/>
                     <div className="right-pane-container">
                         {
                             this.state.items ? <RightPane items={this.state.items}/> : <Loader/>

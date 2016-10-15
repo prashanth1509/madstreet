@@ -5,7 +5,6 @@ export default class Item extends React.Component {
     render(){
         let {id, name, image, category, rating, price, color, quantity, description} = this.props;
 
-        console.log(color);
         return (
             <div className="item">
                 <div className="info">
@@ -15,16 +14,16 @@ export default class Item extends React.Component {
                     <div className="details">
                         <div>
                             <span className="title">{name}</span>
-                            <span className={category === "0" ? 'category apparel' : 'category accessory'}>{''}</span>
+                            <div className="colors" style={{border: '1px solid ' + color}}>
+                                <div className="color" style={{backgroundColor: color}}></div>
+                            </div>
                         </div>
                         <div className="line-2">
                             <Rating rating={rating}/>
                         </div>
                         <div className="desc">
+                            <span className={category === "0" ? 'category apparel' : 'category accessory'}>{''}</span>
                             {description}
-                        </div>
-                        <div className="colors" style={{border: '1px solid ' + color}}>
-                            <div className="color" style={{backgroundColor: color}}></div>
                         </div>
                     </div>
                 </div>
