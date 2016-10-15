@@ -9,7 +9,7 @@ export default class Item extends React.Component {
             <div className="item">
                 <div className="info">
                     <div className="image">
-                        <img src={image} className="img"/>
+                        <img alt="img" src={image} className="img"/>
                     </div>
                     <div className="details">
                         <div>

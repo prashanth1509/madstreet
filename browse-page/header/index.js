@@ -8,14 +8,14 @@ export default class Header extends React.Component {
                 <div className="logo">
                     <div className="name">
                         <span>
-                            <img src={require('../__images/heart.svg')} className="heart"/>
+                            <img alt="heart" src={require('../__images/heart.svg')} className="heart"/>
                         </span>
                         MAD <span className="clip">DEN STREET</span>
                     </div>
                 </div>
                 <div className="search">
                     <input type="text" onChange={(e) => this.props.onSearch(e.target.value)} className="input" placeholder="Search by name.."/>
-                    <img src={SearchImage} className="icon"/>
+                    <img alt="search" src={SearchImage} className="icon"/>
                 </div>
             </div>
         )

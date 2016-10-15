@@ -12,7 +12,7 @@ export default class RightPane extends React.Component {
     emptyComponent(){
         return (
             <div style={{padding: 20, textAlign: 'center'}}>
-                <img src={WarningImage} style={{maxWidth: 100}}/>
+                <img alt="warning" src={WarningImage} style={{maxWidth: 100}}/>
                 <div style={{fontSize: 20, color: '#848484', margin: 10}}>{'No items found!'}</div>
             </div>
         );
