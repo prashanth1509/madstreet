@@ -23,7 +23,9 @@ export default class Item extends React.Component {
                         </div>
                         <div className="desc">
                             <span className={category === "0" ? 'category apparel' : 'category accessory'}>{''}</span>
-                            {description}
+                            <span className="text">
+                                {description}
+                            </span>
                         </div>
                     </div>
                 </div>

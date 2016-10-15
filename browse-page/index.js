@@ -14,7 +14,7 @@ import Notification, {notifier} from './notifier';
 
 function Loader(props) {
     return (
-        <div style={{padding: 10, width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
+        <div style={{padding: 30, width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
             <div className="loader-shell first"></div>
             <div style={{width: '70%'}}>
                 <div className="loader-shell second"></div>

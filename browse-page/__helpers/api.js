@@ -1,8 +1,9 @@
 export default {
-    apiEndpoint: 'https://api.myjson.com/bins/4te92',
+    apiEndpoint: 'https://hackerearth.0x10.info/api/fashion?type=json&query=list_products',
 
     getProductList(){
 
+        /*
         return new Promise((res, rej) => {
             setTimeout(
                 ()=>res({"products":[
@@ -28,6 +29,7 @@ export default {
                 20
             );
         });
+        */
 
         return new Promise((resolve, reject) => {
             fetch(this.apiEndpoint).then(
