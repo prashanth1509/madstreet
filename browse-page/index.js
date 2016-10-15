@@ -48,7 +48,7 @@ class Application extends React.Component {
             predicate = (a, b) => parseFloat(a.price) - parseFloat(b.price);
         }
         else if(type === CONSTANTS.SORT_TYPES[1]) {
-            predicate = (a, b) => parseFloat(a.price) - parseFloat(b.price);
+            predicate = (a, b) => parseFloat(b.price) - parseFloat(a.price);
         }
         else if(type === CONSTANTS.SORT_TYPES[2]) {
             predicate = (a, b) => parseInt(b.category) - parseInt(a.category);
@@ -63,6 +63,7 @@ class Application extends React.Component {
             predicate = (a, b) => parseFloat(b.rating) - parseFloat(a.rating);
         }
 
+        this._lastSortType = type;
 
         if(predicate)
             window.requestAnimationFrame(() => this.setState({items: items.sort(predicate)}, () => notifier('Items sorted')));
@@ -78,18 +79,18 @@ class Application extends React.Component {
         let predicate, items = this.state.items;
 
         if(type == 'price') {
-            if(data.max > 0) {
-                predicate = (item) => {
-                    let itemPrice = parseFloat(item.price);
-                    return (itemPrice > data.min && (itemPrice < (data.max || Number.MAX_SAFE_INTEGER)))
-                };
-            }
+            predicate = (item) => {
+                let itemPrice = parseFloat(item.price);
+                return (itemPrice > data.min && (itemPrice < (data.max || Number.MAX_SAFE_INTEGER)))
+            };
         }
 
         if(predicate)
-            window.requestAnimationFrame(() => this.setState({items: items.filter(predicate)}, () => notifier('Items filtered')));
+            window.requestAnimationFrame(() => this.setState({items: this.state._items_src.filter(predicate)}, () => {notifier('Items filtered');
+                this._lastSortType && this.onSort(this._lastSortType);
+            }));
         else
-            this.setState({items: this.state._items_src});
+            this.setState({items: this.state._items_src}, () => (this._lastSortType && this.onSort(this._lastSortType)));
 
         this.hideFiltersForMobile();
     }

@@ -58,7 +58,7 @@ export default class LeftPane extends React.Component {
                         </select>
                     </div>
                     <div className="bar filter-bar">
-                        <div className="head">Filter <a href="javascript:void(0)" onClick={() => this.props.onFilter({type: 'reset'})} style={{fontSize: 12}}>{'reset'}</a></div>
+                        <div className="head">Filter <a href="javascript:void(0)" onClick={() => window.location.reload()} style={{fontSize: 12}}>{'reset'}</a></div>
                         <div className="price-f">
                             <div>Price</div>
                             <input type="text" ref="min-input" placeholder="min" onFocus={()=>{this.refs['min-input'].select()}} value={this.state.filters.price.data.min} onChange={(e) => this.priceFilterChange(e.target.value, 'min')}/>
