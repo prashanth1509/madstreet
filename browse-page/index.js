@@ -13,12 +13,10 @@ import RightPane from './right-pane';
 function Loader(props) {
     return (
         <div style={{padding: 10, width: '100%', display: 'flex', 'justify-content': 'flex-start', flexDirection: 'row'}}>
-            <div style={{width: '10%', margin: '0 10px'}}>
-                <div className="loader-shell" style={{height: 100}}></div>
-            </div>
-            <div style={{width: '70%', margin: '0 10px'}}>
-                <div className="loader-shell" style={{height: 30}}></div>
-                <div className="loader-shell" style={{width: '60%', marginTop: 5, height: 30}}></div>
+            <div className="loader-shell first"></div>
+            <div style={{width: '70%'}}>
+                <div className="loader-shell second"></div>
+                <div className="loader-shell third"></div>
             </div>
         </div>
     )
